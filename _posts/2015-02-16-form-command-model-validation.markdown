@@ -9,7 +9,7 @@ abstract: "Make a clear distinction between different layers of validation."
 image: "http://verraes.net/img/posts/2015-02-16-form-command-model-validation/smokesignals.jpg"
 ---
 
-Many of the frameworks I've worked with, promise to separate responsibilities with MVC. In practice, the end up coupling everything to everything. The forms are coupled to the models, and there's a grand unified validation layer. This may be convenient at first, but it breaks down for larger systems, and creates headaches when having to support multiple clients. My approach is to clearly separate the validation for the form itself, from the Command validation and the model validation.  
+Many of the frameworks I've worked with, promise to separate responsibilities with MVC. In practice, they end up coupling everything to everything. The forms are coupled to the models, and there's a grand unified validation layer. This may be convenient at first, but it breaks down for larger systems, and creates headaches when having to support multiple clients. My approach is to clearly separate the validation for the form itself, from the Command validation and the model validation.
 
 
 
@@ -24,7 +24,7 @@ The Command object should use Value Objects. They guarantee their own consistenc
 
 ## Model
 
-The model is the "official" source of truth. It doesn't worry whether the "birthday" field looks like a date and whether the "zipcode" looks like a zipcode, because it can trust the Command. The model is responsible for protecting its own invariants, business rules, and constraints. It can reliably[^1] prevent duplicate usernames, account overdrafts, and all kinds of other business concerns. It fails hard when a executing the Command would violate those concerns.
+The model is the "official" source of truth. It doesn't worry whether the "birthday" field looks like a date and whether the "zipcode" looks like a zipcode, because it can trust the Command. The model is responsible for protecting its own invariants, business rules, and constraints. It can reliably[^1] prevent duplicate usernames, account overdrafts, and all kinds of other business concerns. It fails hard when executing the Command would violate those concerns.
 
 The Commands, the Value Objects, and the objects that make up the model, are decoupled from the framework and the persistence. We can effectively transport them to a different context, such as a different framework. They are independently testable with unit tests.  
 
