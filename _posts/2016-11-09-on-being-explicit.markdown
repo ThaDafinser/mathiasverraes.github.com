@@ -1,12 +1,12 @@
 ---
 title: "On Being Explicit"
 slug: on-being-explicit
-date: 2016-11-10
+date: 2016-11-09
 layout: post
 published: true
 tags: [talk]
-abstract: "Software design stories."
-image: "http://verraes.net/img/posts/2016-11-10-on-being-explicit/OnBeingExplicit.png"
+abstract: "Software design stories"
+image: "http://verraes.net/img/posts/2016-11-09-on-being-explicit/OnBeingExplicit.png"
 ---
 
 
