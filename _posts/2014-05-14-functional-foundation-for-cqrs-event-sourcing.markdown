@@ -85,6 +85,34 @@ I wrote that user intention can not be represented as a pure function, but of co
 
 ```f(brain, state) -> command```
 
+## Update Dec 17, 2016
+
+My model completely lacked Queries. Having state without being able to query it is rather useless. Like Events and Commands, a [Query is just a message](/2015/01/messaging-flavours/). It fits in the Query Model (duh) aka Read Model like this: `f(history, query) -> state` where state is a subset of the all the state that the projector writes. In CQRS, I think ideally, a projector should have **private state**, meaning that the projector is the only one that read and write its own (logical) private database. All clientss get state by sending one of the projector's supported Query messages. Another type of query is a Subscription, as sometimes a client is interested in a stream of (filtered) events as opposed to state.
+
+So this represents my current thinking here:
+
+{% highlight haskell %}
+handle :: [Event] -> Command -> [Event]
+subscribe :: [Event] -> SubscriptionQuery -> [Event]
+process :: [Event] -> [Command|Event]
+query :: [Event] -> Query -> State
+{% endhighlight %}
+
+or with intermediate states made explicit:
+
+{% highlight haskell %}
+project :: State -> Event -> State
+query' :: State -> Query -> State
+{% endhighlight %}
+
+And modelling the human:
+
+{% highlight haskell %}
+learn :: State -> Brain -> Query
+decide :: State -> Brain -> [Command]
+{% endhighlight %}
+
+
 ## Read More
 
 - [Domain Events](/2014/11/domain-events/)
